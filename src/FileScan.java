@@ -5,8 +5,6 @@ import java.nio.file.Path; // import class Path
 import java.util.ArrayList; // import class ArrayList
 import java.util.Scanner;
 
-// import static java.nio.file.StandardOpenOption.CREATE; // import class CREATE
-
 /**
  *
  * @author Daniel Sandy sandyds@mail.uc.edu
@@ -14,7 +12,6 @@ import java.util.Scanner;
 
 public class FileScan // class FileScan
 {
-
     /**
      *
      * @param args
@@ -26,12 +23,6 @@ public class FileScan // class FileScan
         // Scanner in = new Scanner(System.in);
         String rec = ""; // each individual record
         ArrayList<String> lines = new ArrayList<>(); // array of records
-//        final int FIELDS_LENGTH = 5; // total values per entry
-//        String firstName = ""; // store first name
-//        String lastName = ""; // store last name
-//        String ID = ""; // store employee ID
-//        String email = ""; // store email
-//        String birthYear = "0"; // store year of birth
         int line = 0; // number of lines
         int words = 0; // number of words
         int characters = 0; // number of characters
@@ -39,31 +30,31 @@ public class FileScan // class FileScan
         System.out.println(""); // output empty line for visual effect
         try // do this unless there is an exception
         {
-            if (args.length > 0) {
-                selectedFile = new File(args[0]);
+            if (args.length > 0) { // if there is an argument set
+                selectedFile = new File(args[0]); // make that argument the file name
                 // System.out.println("Found!!!!!\n");
-                if (!selectedFile.exists()) {
-                    System.out.println("File not found: " + args[0]);
-                    System.out.println("Run the program again.");
-                    System.exit(0);
-                }
-            } else {
+                if (!selectedFile.exists()) { // if argument set in settings does not exist
+                    System.out.println("File not found: " + args[0]); // output file not found
+                    System.out.println("Run the program again."); // output need to re-start
+                    System.exit(0); // exit the program
+                } // end if
+            } else { // if no argument set in settings, go through JFileChooser
                 File workingDirectory = new File(System.getProperty("user.dir")); // store pwd
                 chooser.setCurrentDirectory(workingDirectory); // start user in pwd
                 if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) // if user chooses a valid file
                 {
                     selectedFile = chooser.getSelectedFile(); // store selected file in selectedFile
-                } else {
-                    System.out.println("Did not choose a file.");
-                    System.out.println("Start over!");
-                    System.exit(01);
-                }
-            }
+                } else
+                {
+                    System.out.println("Did not choose a file."); // output file not chosen
+                    System.out.println("Start over!"); // output need to restart
+                    System.exit(01); // exit the program
+                } // end if else
+            } // end if else
 
             Path file = selectedFile.toPath(); // convert file to the actual file path
             InputStream in = new BufferedInputStream(Files.newInputStream(file)); // store Input Stream in in
             BufferedReader reader = new BufferedReader(new InputStreamReader(in)); // store Buffered Readed in reader
-            // line = 0;
             while (reader.ready()) // while user is ready
             {
                 rec = reader.readLine(); // rec is a line read from the file
@@ -75,26 +66,6 @@ public class FileScan // class FileScan
                 System.out.println(rec); // print each line
             }
             reader.close(); // close the reader
-//          System.out.println("\nData file read!"); // output to user that the data was read
-//          String[] fields;
-//            for (String l : lines)
-//            {
-//                fields = l.split(",");
-//                if (fields.length == FIELDS_LENGTH)
-//                {
-//                    firstName = fields[0].trim();
-//                    lastName = fields[1].trim();
-//                    ID = fields[2].trim();
-//                    email = fields[3].trim();
-//                    birthYear = fields[4].trim();
-//                    System.out.printf("\n%-20s%-20s%-10s%-35s%6s", firstName, lastName, ID, email, birthYear);
-//                }
-//                else
-//                {
-//                    System.out.println("Found a record that may be corrupt.");
-//                    System.out.println(l);
-//                }
-//            }
             System.out.println("\nSummary Report:"); // output header for the summary report
             System.out.println("-------------------------"); // output header for the summary report
             System.out.println("File Name: " + selectedFile.getName()); // output name of the file
@@ -102,13 +73,6 @@ public class FileScan // class FileScan
             System.out.println("Total Words: " + words); // output the total # of word
             System.out.println("Total Characters: " + characters); // output the total # of characters
             }
-//            else // if user doesn't select a valid file
-//            {
-//                System.out.println("Failed to choose a file."); // output file choice invalid
-//                System.out.println("Run the program again!"); // output to tell user to re-do
-//                System.exit(0); // exit the program
-//            } // end if else
-//        } // end try
         catch (FileNotFoundException e) // if file not found exception
         {
             System.out.println("File not found!"); // output that the file was not found
