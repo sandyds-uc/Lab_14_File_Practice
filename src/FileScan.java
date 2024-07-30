@@ -41,8 +41,10 @@ public class FileScan // class FileScan
         {
             if (args.length > 0) {
                 selectedFile = new File(args[0]);
+                // System.out.println("Found!!!!!\n");
                 if (!selectedFile.exists()) {
                     System.out.println("File not found: " + args[0]);
+                    System.out.println("Run the program again.");
                     System.exit(0);
                 }
             } else {
